@@ -22,6 +22,37 @@ const autoOpenBrowser = !!config.dev.autoOpenBrowser
 const proxyTable = config.dev.proxyTable
 
 const app = express()
+
+/**
+ *  定义Node静态服务器的路由,接入mock数据
+ */
+var appData = require('../data.json')
+var seller = appData.seller
+var goods = appData.goods
+var ratings = appData.ratings
+
+var apiRouters = express.Router()
+apiRouters.get('/seller', function (req, resp) {
+  resp.json({
+    errno: 0,
+    data: seller
+  })
+})
+apiRouters.get('/goods', function (req, resp) {
+  resp.json({
+    errno: 0,
+    data: goods
+  })
+})
+apiRouters.get('/ratings', function (req, resp) {
+  resp.json({
+    errno: 0,
+    data: ratings
+  })
+})
+// 主干路由
+app.use('/api', apiRouters)
+
 const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -51,7 +82,7 @@ app.use(hotMiddleware)
 Object.keys(proxyTable).forEach(function (context) {
   let options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {target: options}
   }
   app.use(proxyMiddleware(options.filter || context, options))
 })
