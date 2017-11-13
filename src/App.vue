@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <v-header></v-header>
-    <div class="tab">Tab</div>
-    <div class="content">Content</div>
+    <div class="tab">
+      <div class="tab-item">商品</div>
+      <div class="tab-item">评论</div>
+      <div class="tab-item">商家</div>
+    </div>
+    <div class="content">Content: 内容列表区</div>
     <router-view/>
   </div>
 </template>
@@ -16,7 +20,17 @@
   }
 </script>
 
-<style>
+<style lang="stylus" rel="stylesheet/stylus">
+  #app
+    .tab
+      display: flex
+      width: 100%
+      height: 40px
+      line-height: 40px
+      .tab-item
+        flex: 1
+        text-align: center
+
   /*#app {*/
   /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
   /*-webkit-font-smoothing: antialiased;*/

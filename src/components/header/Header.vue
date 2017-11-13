@@ -1,6 +1,6 @@
 <template>
   <div>
-    Header 内容
+    Header: 商家信息
   </div>
 </template>
 
