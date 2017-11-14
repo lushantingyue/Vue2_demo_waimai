@@ -2,7 +2,7 @@
   <div id="app">
     <v-header></v-header>
 
-    <div class="tab">
+    <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
         <!--<a v-link="{path:'/goods'}">商品</a>-->
@@ -31,6 +31,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "./common/stylus/mixin.styl"
+  /*@import "./common/stylus/base.styl"*/
 
   #app
     .tab
