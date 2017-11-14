@@ -16,22 +16,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })
-
-// let app = Vue.extend(App)
-
-// let router = new VueRouter()
-// router.addRoutes({
-//   '/goods': {
-//     component: goods
-//   },
-//   '/ratings': {
-//     component: ratings
-//   },
-//   '/seller': {
-//     component: seller
-//   }
-// })
-//
-// router.start(app, '#app')

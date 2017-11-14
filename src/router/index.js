@@ -6,8 +6,8 @@ import Ratings from '@/components/ratings/ratings'
 import Seller from '@/components/seller/seller'
 
 Vue.use(Router)
-
-export default new Router({
+const router = new Router({
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/goods',
@@ -20,6 +20,13 @@ export default new Router({
     {
       path: '/seller',
       component: Seller
+    },
+    {
+      //  重定向实现默认路由
+      path: '/',
+      redirect: '/seller'
     }
   ]
 })
+
+export default router
