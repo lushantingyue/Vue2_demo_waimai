@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import 'common/stylus/index.styl'
 // import VueRouter from 'vue-router'
 // import goods from '@/components/goods/goods'
 // import ratings from '@/components/ratings/ratings'
