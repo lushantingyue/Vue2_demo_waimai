@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
 
     <div class="border-1px-top tab border-1px">
       <div class="tab-item">
@@ -21,7 +21,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import header from './components/header/Header.vue'
+  import header from './components/header/header.vue'
 
   const STATE_SUCESS = 0
 
@@ -29,7 +29,7 @@
     name: 'app',
     data () {
       return {
-        seller: {}
+        seller: { }
       }
     },
     created () {
