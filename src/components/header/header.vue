@@ -31,6 +31,10 @@
       <span class="bulletin-title"></span><span class="bulletin-text">{{ seller.bulletin }}</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
+
+    <div class="background">
+      <img :src="seller.avatar" width="100%" height="100%"/>
+    </div>
   </div>
 </template>
 
@@ -50,8 +54,9 @@
   @import '../../common/stylus/mixin.styl'
 
   .header
+    position :relative
     color: #fff
-    background: #ababab
+    background : rgba(7, 17, 27, 0.5)
     .content-wrapper
       padding: 24px 24px 18px 12px
       position: relative
@@ -159,5 +164,15 @@
         font-size :10px
         right: 12px
         top: 3px
+
+
+    .background
+      position : absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      z-index: -1
+      filter : blur(10px)
 
 </style>
