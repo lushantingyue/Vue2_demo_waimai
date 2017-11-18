@@ -56,6 +56,7 @@
   .header
     position :relative
     color: #fff
+    overflow : hidden
     background : rgba(7, 17, 27, 0.5)
     .content-wrapper
       padding: 24px 24px 18px 12px
@@ -147,7 +148,7 @@
       .bulletin-title
         display :inline-block
         vertical-align: top
-        margin-top: 7px
+        margin-top: 8px
         width :22px
         height :12px
         bg-image('bulletin')
