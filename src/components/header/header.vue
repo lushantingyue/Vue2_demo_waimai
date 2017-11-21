@@ -43,6 +43,17 @@
           <div star-wrapper>
             <star :size="48" :score="seller.score"></star>
           </div>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">优惠信息</div>
+            <div class="line"></div>
+          </div>
+          <ul v-if="seller.supports" class="supports">
+            <li v-for="item in seller.supports" class="support-item">
+              <span class="icon" :class="classMap[item.type]"></span>
+              <span class="text">{{ item.description }}</span>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="detail-close">
@@ -228,6 +239,50 @@
           .star-wrapper
             margin-top : 18px
             padding : 2px 0
+          .title
+            display : inline-block
+            width : 80%
+            margin: 28px auto 24px auto
+            .line
+              flex : 1
+              position : relative
+              top : -6px
+              border-bottom : 1px solid rgba(255, 255, 255, 0.2)
+            .text
+              padding : 0, 12px
+              font-size : 14px
+              font-weight: 700
+
+          .supports
+            display: inline-block
+            width: 80%
+            margin: 0 auto
+            .support-item
+              padding:  0, 12px
+              margin-bottom: 12px
+              font-size: 0
+              &:last-child
+                margin-bottom: 0
+              .text
+                font-size: 12px
+                line-height: 12px
+              .icon
+                display: inline-block
+                width: 16px
+                height: 16px
+                vert-align: top
+                margin-right: 6px
+                background-size: 16px, 16px
+                &.decrease
+                  bg-image('decrease_2')
+                &.discount
+                  bg-image('discount_2')
+                &.guarantee
+                  bg-image('guarantee_2')
+                &.invoice
+                  bg-image('invoice_2')
+                &.special
+                  bg-image('special_2')
 
       .detail-close
         position : relative
