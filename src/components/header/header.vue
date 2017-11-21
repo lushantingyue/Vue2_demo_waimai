@@ -40,7 +40,9 @@
       <div class="detail-wrapper clearfix" >
         <div class="detail-main">
           <h1 class="name">{{ seller.name }}</h1>
-          <star :size="48" :score="seller.score"></star>
+          <div star-wrapper>
+            <star :size="48" :score="seller.score"></star>
+          </div>
         </div>
       </div>
       <div class="detail-close">
@@ -218,11 +220,14 @@
         .detail-main
           margin-top : 64px
           padding-bottom : 64px
+          text-align : center
           .name
             line-height : 16px
-            text-align : center
             font-size : 16px
             font-weight : 700
+          .star-wrapper
+            margin-top : 18px
+            padding : 2px 0
 
       .detail-close
         position : relative
