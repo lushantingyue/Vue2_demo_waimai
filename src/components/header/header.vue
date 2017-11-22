@@ -40,7 +40,7 @@
       <div class="detail-wrapper clearfix" >
         <div class="detail-main">
           <h1 class="name">{{ seller.name }}</h1>
-          <div star-wrapper>
+          <div class="star-wrapper">
             <star :size="48" :score="seller.score"></star>
           </div>
           <div class="title">
@@ -229,9 +229,9 @@
         min-height : 100%
         width : 100%;
         .detail-main
+          text-align: center
           margin-top : 64px
           padding-bottom : 64px
-          text-align : center
           .name
             line-height : 16px
             font-size : 16px
@@ -255,6 +255,7 @@
 
           .supports
             display: inline-block
+            text-align left
             width: 80%
             margin: 0 auto
             .support-item
@@ -273,6 +274,7 @@
                 vert-align: top
                 margin-right: 6px
                 background-size: 16px, 16px
+                background-repeat: no-repeat
                 &.decrease
                   bg-image('decrease_2')
                 &.discount
