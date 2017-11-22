@@ -36,6 +36,7 @@
       <img :src="seller.avatar" width="100%" height="100%"/>
     </div>
 
+    <transition name="fade">
     <div v-show="detailShow" class='detail'>
       <div class="detail-wrapper clearfix" >
         <div class="detail-main">
@@ -69,6 +70,7 @@
         <i class="icon-close"></i>
       </div>
     </div>
+    </transition>
 
   </div>
 </template>
@@ -236,7 +238,12 @@
       width :100%
       height : 100%
       overflow : auto
-      background : rgba(7, 17, 27, 0.8)
+      background rgba(7, 17, 27, 0.8)
+      &.fade-enter-active, &.fade-leave-active
+        transition: all 0.5s
+      &.fade-enter, &.fade-leave-to
+        opacity: 0
+
       .detail-wrapper
         min-height : 100%
         width : 100%;
