@@ -59,10 +59,13 @@
             <div class="text">商家公告</div>
             <div class="line"></div>
           </div>
-          <div class="bulletin">{{ seller.bulletin }}</div>
+
+          <div class="bulletin">
+            <p class="content">{{ seller.bulletin }}</p>
+          </div>
         </div>
       </div>
-      <div class="detail-close">
+      <div class="detail-close" @click="hideDetail">
         <i class="icon-close"></i>
       </div>
     </div>
@@ -85,6 +88,9 @@
     methods: {
       showDetail () {
         this.detailShow = true
+      },
+      hideDetail () {
+        this.detailShow = false
       }
     },
     created () {
@@ -246,7 +252,7 @@
             margin-top : 18px
             padding : 2px 0
           .title
-            display : inline-block
+            display : inline-flex
             width : 80%
             margin: 28px auto 24px auto
             .line
@@ -255,19 +261,20 @@
               top : -6px
               border-bottom : 1px solid rgba(255, 255, 255, 0.2)
             .text
-              padding : 0, 12px
+              margin: 0 12px
               font-size : 14px
+              line-height: 14px
               font-weight: 700
 
           .supports
             display: inline-block
             text-align left
-            width: 80%
+            width: 100%
             margin: 0 auto
             .support-item
-              padding:  0, 12px
+              padding:  0 12px
               margin-bottom: 12px
-              font-size: 0
+              font-size: 0px
               &:last-child
                 margin-bottom: 0
               .text
@@ -279,6 +286,7 @@
                 height: 16px
                 vert-align: top
                 margin-right: 6px
+                margin-bottom: -4px
                 background-size: 16px, 16px
                 background-repeat: no-repeat
                 &.decrease
@@ -293,11 +301,14 @@
                   bg-image('special_2')
 
           .bulletin
+            display: inline-block
             text-align: left
-            font-size: 12px
-            line-height: 24px
-            margin: auto 36px
-            padding: 0 12px
+            width: 80%
+            .content
+              padding: 0 12px
+              margin-top: -6px
+              font-size: 12px
+              line-height: 24px
 
       .detail-close
         position : relative
