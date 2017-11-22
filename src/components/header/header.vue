@@ -54,6 +54,12 @@
               <span class="text">{{ item.description }}</span>
             </li>
           </ul>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">商家公告</div>
+            <div class="line"></div>
+          </div>
+          <div class="bulletin">{{ seller.bulletin }}</div>
         </div>
       </div>
       <div class="detail-close">
@@ -285,6 +291,13 @@
                   bg-image('invoice_2')
                 &.special
                   bg-image('special_2')
+
+          .bulletin
+            text-align: left
+            font-size: 12px
+            line-height: 24px
+            margin: auto 36px
+            padding: 0 12px
 
       .detail-close
         position : relative
