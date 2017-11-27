@@ -1,7 +1,7 @@
 <template>
   <div class="good">
     <div class="menu-wrapper">
-      <ul class="list">
+      <ul>
         <li v-for="item in goods" class="menu-item" @click="showIndex(item)">
           <span class="text">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>
@@ -86,11 +86,8 @@
       flex: 0 0 80px
       width: 80px
       background: #f3f5f7
-      .list
+      ul
         font-size: 0
-        list-style-type: none
-        margin 0
-        padding 0
         .menu-item
           display: table
           height: 54px
@@ -127,9 +124,6 @@
       flex: 1
       overflow: auto
       .food-list
-        list-style-type: none
-        margin 0
-        padding 0
         .title
           padding-left: 14px
           height: 26px
@@ -138,6 +132,7 @@
           font-size: 12px
           color: rgb(147, 153, 159)
           background: #f3f5f7
+         ul
           .food-item
             display: flex
             margin: 18px
