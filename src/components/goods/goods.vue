@@ -68,8 +68,6 @@
     },
     methods: {
       _initScroll () {
-//        this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
-//        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
       }
