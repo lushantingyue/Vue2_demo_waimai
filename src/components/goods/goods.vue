@@ -1,8 +1,8 @@
 <template>
   <div class="good">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" ref="menuWrapper">
       <ul>
-        <li v-for="item in goods" class="menu-item" @click="showIndex(item)">
+        <li v-for="item in goods" class="menu-item">
           <span class="text">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>
             {{ item.name }}
@@ -10,7 +10,7 @@
         </li>
       </ul>
     </div>
-    <div class="foods-wrapper">
+    <div class="foods-wrapper" ref="foodsWrapper">
       <ul>
         <li v-for="item in goods" class="food-list">
           <h4 class="title">{{ item.name }}</h4>
@@ -23,8 +23,7 @@
                 <h2 class="name">{{food.name}}</h2>
                 <p class="desc">{{food.description}}</p>
                 <div class="extra">
-                  <span>月售{{food.sellCount}}份</span>
-                  <span class="count">好评率{{food.rating}}%</span>
+                  <span  class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
                   <span class="now">￥{{food.price}}</span>
@@ -40,6 +39,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import BScroll from 'better-scroll'
+
   const STATE_SUCESS = 0
 
   export default {
@@ -59,13 +60,18 @@
         if (response.errno === STATE_SUCESS) {
           this.goods = response.data
           console.log(this.goods)
+          this.$nextTick(() => {
+            this._initScroll()
+          })
         }
       })
     },
     methods: {
-      showIndex (item) {
-//        this.listData = item.foods
-//        console.log(this.listData)
+      _initScroll () {
+//        this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
+//        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
+        this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
       }
     }
   }
@@ -122,7 +128,6 @@
 
     .foods-wrapper
       flex: 1
-      overflow: auto
       .food-list
         .title
           padding-left: 14px
@@ -157,9 +162,10 @@
                 font-size: 10px
                 color: rgb(147, 153, 159)
               .desc
+                line-height: 12px
                 margin-bottom: 8px
               .extra
-                &.count
+                .count
                   margin-right: 12px
               .price
                 font-weight: 700
@@ -173,7 +179,4 @@
                   font-size: 10px
                   color: rgb(147, 153, 159)
 
-  //.ul
-  //list-style: none
-  //float: left
 </style>
