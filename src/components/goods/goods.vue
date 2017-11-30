@@ -35,11 +35,13 @@
         </li>
       </ul>
     </div>
+    <shopcart></shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
+  import shopcart from '../shopcart/shopcart'
 
   const STATE_SUCESS = 0
 
@@ -111,6 +113,9 @@
           this.listHeight.push(height)
         }
       }
+    },
+    components: {
+      shopcart
     }
   }
 </script>
