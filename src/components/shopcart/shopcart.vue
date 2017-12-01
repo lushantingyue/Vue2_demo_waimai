@@ -3,11 +3,12 @@
     <div class="content">
       <div class="content-left">
         <div class="logo-wrapper">
-          <div class="logo">
-            <i class="icon-shopping_cart"></i>
+          <div class="logo"  :class="{'highlight': totalCount>0}">
+            <i class="icon-shopping_cart" :class="{'highlight': totalCount>0}"></i>
           </div>
+          <div class="num" v-show="totalCount>0">{{totalCount}}</div>
         </div>
-        <div class="price">￥0</div>
+        <div class="price" :class="{'highlight': totalPrice>0}">￥{{totalPrice}}</div>
         <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
       </div>
       <div class="content-right">
@@ -20,6 +21,17 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
+      selectFood: {
+        type: Array,
+        default () {
+          return [
+            {
+              price: 10,
+              count: 6
+            }
+          ]
+        }
+      },
       deliveryPrice: {
         type: Number,
         default: 0
@@ -27,6 +39,22 @@
       minPrice: {
         type: Number,
         default: 0
+      }
+    },
+    computed: {
+      totalPrice () {
+        let total = 0
+        this.selectFood.forEach((food) => {
+          total += food.price * food.count
+        })
+        return total
+      },
+      totalCount () {
+        let count = 0
+        this.selectFood.forEach((food) => {
+          count += food.count
+        })
+        return count
       }
     }
   }
@@ -65,10 +93,28 @@
             border-radius: 50%
             text-align: center
             background: #2b343c
+            &.highlight
+              background: rgb(0, 160, 220)
             .icon-shopping_cart
-              font-size: 24px
-              color #80858a
               line-height: 44px
+              font-size: 24px
+              color: #80858a
+              &.highlight
+                color: #fff
+          .num
+            position: absolute
+            top: 0
+            right: 0
+            width: 24px
+            height: 16px
+            border-radius: 6px
+            background rgb(240, 20, 20)
+            text-align center
+            line-height: 16px
+            font-size: 9px
+            font-weight: 700
+            color: #fff
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4)
 
         .price
           display: inline-block
@@ -80,6 +126,8 @@
           border-right: 1px solid rgba(255, 255, 255, 0.1)
           font-size: 16px
           font-weight: 700
+          &.highlight
+            color: #fff
         .desc
           display: inline-block
           vertical-align: top
