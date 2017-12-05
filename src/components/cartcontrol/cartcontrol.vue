@@ -53,20 +53,20 @@
       padding: 6px
       opacity: 1
       transform: translate3d(0, 0, 0)
-      &.move-enter-active, &.move-leave-active
-        transition: all 0.4s linear
-      &.move-enter, &.move-leave-active
-        opacity: 0
-        transform: translate3d(24px, 0, 0)
-        .inner
-          transform: rotate(180deg)
-      .inner
+      .inner  // 内层动画原始状态
         display: inline-block
         line-height: 24px
         font-size: 24px
         color: rgb(0, 160, 220)
         transition: all 0.4s linear
         transform: rotate(0)
+      &.move-enter-active, &.move-leave-active  // 外层: 平移动画过渡属性
+        transition: all 0.4s linear
+      &.move-enter, &.move-leave-active
+        opacity: 0
+        transform: translate3d(24px, 0, 0)
+        .inner  // 内层动画结束状态
+          transform: rotate(180deg)
 
     .cart-count
       display: inline-block
