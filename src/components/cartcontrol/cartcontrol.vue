@@ -48,7 +48,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .cartcontrol
     font-size: 0px
-    .cart-decrease
+    .cart-decrease  // 外层动画原始状态
       display: inline-block
       padding: 6px
       transition: all 0.4s linear
@@ -62,7 +62,7 @@
         color: rgb(0, 160, 220)
         transition: all 0.4s
         transform: rotate(0)
-      &.move-enter, &.move-leave
+      &.move-enter, &.move-leave-to
         opacity: 0
         transform: translate3d(24px, 0, 0)
         .inner
