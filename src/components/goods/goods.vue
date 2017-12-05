@@ -100,6 +100,7 @@
           click: true
         })
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          click: true,
           probeType: 3
         })
 
@@ -235,4 +236,8 @@
                   font-size: 10px
                   color: rgb(147, 153, 159)
 
+              .cartcontrol-wrapper
+                position: absolute
+                right: 0
+                bottom: 12px
 </style>
