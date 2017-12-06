@@ -30,6 +30,7 @@
                   <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
+                  <!--v-on:cartAdd="_drop(target)"-->
                   <cartcontrol :food="food"></cartcontrol>
                 </div>
               </div>
@@ -38,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :selectFood="selectFood" :deliveryPrice="seller.deliveryPrice" :minPrice=seller.minPrice></shopcart>
+    <shopcart ref="shopcart" :selectFood="selectFood" :deliveryPrice="seller.deliveryPrice" :minPrice=seller.minPrice></shopcart>
   </div>
 </template>
 
@@ -46,6 +47,7 @@
   import BScroll from 'better-scroll'
   import shopcart from '../shopcart/shopcart'
   import cartcontrol from '../cartcontrol/cartcontrol'
+  import Bus from '../../bus'
 
   const STATE_SUCESS = 0
 
@@ -57,7 +59,8 @@
       return {
         goods: [],
         listHeight: [],
-        scrollY: 0
+        scrollY: 0,
+        target: Object
       }
     },
     computed: {
@@ -82,6 +85,10 @@
         })
         return foods
       }
+      // ,
+      // cartAdd (target) {
+      //   this._drop(target)
+      // }
     },
     created () {
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
@@ -94,6 +101,13 @@
             this._calculateHeight()
           })
         }
+      })
+
+      // this.$on('cartAdd', (target) => {
+      //   this._drop(target)
+      // })
+      Bus.$on('cartAdd', (target) => {
+        this._drop(target)
       })
     },
     methods: {
@@ -128,6 +142,12 @@
           height += item.clientHeight
           this.listHeight.push(height)
         }
+      },
+      _drop (target) {
+        // 调用shopcart组件的drop methods
+        console.log('******* goods *******')
+        console.log(target)
+        this.$refs.shopcart.drop(target)
       }
     },
     components: {

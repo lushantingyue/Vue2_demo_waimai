@@ -12,6 +12,7 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
+  import Bus from '../../bus'
 
   export default {
     props: {
@@ -32,6 +33,12 @@
         } else {
           this.food.count++
         }
+
+        // this.$dispatch('cart.add', event.target)
+        console.log('********* cartcontrol ************')
+        console.log(event.target)
+        // this.$emit('cartAdd', event.target)
+        Bus.$emit('cartAdd', event.target)
       },
       decreaseCart (event) {
         if (!event._constructed) {

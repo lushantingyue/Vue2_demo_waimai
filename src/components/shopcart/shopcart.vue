@@ -3,7 +3,7 @@
     <div class="content">
       <div class="content-left">
         <div class="logo-wrapper">
-          <div class="logo"  :class="{'highlight': totalCount>0}">
+          <div class="logo" :class="{'highlight': totalCount>0}">
             <i class="icon-shopping_cart" :class="{'highlight': totalCount>0}"></i>
           </div>
           <div class="num" v-show="totalCount>0">{{totalCount}}</div>
@@ -13,6 +13,15 @@
       </div>
       <div class="content-right">
         <div class="pay" :class="payClass">{{payDesc}}</div>
+      </div>
+    </div>
+    <div class="ball-container">
+      <div v-for="ball in balls">
+        <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
+          <div class="ball" v-show="ball.show">
+            <div class="inner inner-hook"></div>
+          </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -39,6 +48,18 @@
       minPrice: {
         type: Number,
         default: 0
+      }
+    },
+    data () {
+      return {
+        balls: [
+          {show: false},
+          {show: false},
+          {show: false},
+          {show: false},
+          {show: false}
+        ],
+        dropBalls: []
       }
     },
     computed: {
@@ -71,6 +92,65 @@
           return 'not-enough'
         } else {
           return 'enough'
+        }
+      }
+    },
+    methods: {
+      drop (el) {
+        console.log('******* shopcart *******')
+        // 触发一次事件就会将所有小球进行遍历
+        for (let i = 0; i < this.balls.length; i++) {
+          let ball = this.balls[i]
+          if (!ball.show) {
+            // 将false的小球放到dropBalls
+            ball.show = true
+            ball.el = el
+            // 设置小球的el属性为一个dom对象
+            this.dropBalls.push(ball)
+            return
+          }
+        }
+      },
+      beforeDrop (el) {
+        let count = this.balls.length
+        while (count--) {
+          let ball = this.balls[count]
+          if (ball.show) {
+            let rect = ball.el.getBoundingClientRect()
+            let x = rect.left - 32
+            let y = -(window.innerHeight - rect.top - 22)
+            el.style.display = ''
+            el.style.webkitTransform = `translate3d(0, ${y}px, 0)`
+            el.style.transform = `translate3d(0, ${y}px, 0)`
+            // 内层动画
+            let inner = el.getElementsByClassName('inner-hook')[0]
+            inner.style.webkitTransform = `translate3d(${x}px, 0, 0)`
+            inner.style.transform = `translate(${x}px, 0, 0)`
+          }
+        }
+      },
+      dropping (el, done) {
+        /* eslint-disable no-unused-vars */
+        // 触发重绘html
+        let rf = el.offsetHeight
+        // 让动画效果异步执行,提高性能
+        this.$nextTick(() => {
+          el.style.webkitTransform = 'translate3d(0,0,0)'
+          el.style.transform = 'translate3d(0,0,0)'
+          // 处理内层动画
+          let inner = el.getElementsByClassName('inner-hook')[0]
+          inner.style.webkitTransform = 'translate3d(0,0,0)'
+          inner.style.transform = 'translate3d(0,0,0)'
+          // Vue为了知道过渡的完成，必须设置相应的事件监听器。
+          el.addEventListener('transitionend', done)
+        })
+      },
+      afterDrop (el) {
+        // 完成一次动画就删除一个dropBalls的小球
+        let ball = this.dropBalls.shift()
+        if (ball) {
+          ball.show = false
+          ball.style.display = 'none'
         }
       }
     }
@@ -169,6 +249,20 @@
             background: #2b333b
           &.enough
             background: #00b43c
-            color:#fff
+            color: #fff
 
+    .ball-container
+      .ball
+        position: fixed
+        left: 32px
+        bottom: 22px
+        z-index: 200
+        &.drop-transition
+          transition: all 0.4s linear
+          .inner
+            width: 16px
+            height: 16px
+            border-radius: 50%
+            background: rgb(0, 160, 220)
+            transition: all 0.4s linear
 </style>
