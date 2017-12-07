@@ -35,7 +35,7 @@
             <li class="food" v-for="food in selectFood">
               <span class="name">{{food.name}}</span>
               <div class="price">
-                <span>￥{{food.price*food.count}}</span>
+                <span class="prefix">￥</span><span>{{food.price*food.count}}</span>
               </div>
               <div class="cartcontrol-wrapper">
                 <cartcontrol :food="food"></cartcontrol>
@@ -254,6 +254,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/mixin.styl"
+
   .shopcart
     position: fixed
     left: 0
@@ -372,5 +374,52 @@
       transform: translate3d(0,-100%,0)
       &.fold-enter, &.fold-leave
         transform translate3d(0,0,0)
+      .list-header
+        height: 40px
+        line-height: 40px
+        padding: 0 18px
+        background: #f3f5f7
+        border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+        .title
+          float left
+          font-size 14px
+          font-weight 200
+          color rgb(7, 17, 27)
+        .empty
+          float right
+          font-size 12px
+          color rgb(0, 160, 220)
+
+      .list-content
+        padding: 0 18px
+        overflow: hidden
+        max-height: 217px
+        background: #fff
+        .food
+          position: relative
+          padding: 12px 0
+          box-sizing: border-box
+          border-1px(rgba(7, 17, 27, 0.1))
+          .name
+            line-height: 24px
+            font-size: 14px
+            color: rgb(7, 17, 27)
+          .price
+            position: absolute
+            right: 90px
+            bottom: 12px
+            line-height: 24px
+            font-size: 14px
+            font-weight: 700
+            color: rgb(240, 20, 20)
+            .prefix
+              font-size: 10px
+              font-weight normal
+          .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 6px
+
+
 
 </style>
