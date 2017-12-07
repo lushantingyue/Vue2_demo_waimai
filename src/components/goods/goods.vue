@@ -39,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart ref="shopcart" :selectFood="selectFood" :deliveryPrice="seller.deliveryPrice" :minPrice=seller.minPrice></shopcart>
+    <shopcart ref="shopCart" :selectFood="selectFood" :deliveryPrice="seller.deliveryPrice" :minPrice=seller.minPrice></shopcart>
   </div>
 </template>
 
@@ -103,9 +103,6 @@
         }
       })
 
-      // this.$on('cartAdd', (target) => {
-      //   this._drop(target)
-      // })
       Bus.$on('cartAdd', (target) => {
         this._drop(target)
       })
@@ -147,7 +144,7 @@
         // 调用shopcart组件的drop methods
         console.log('******* goods *******')
         console.log(target)
-        this.$refs.shopcart.drop(target)
+        this.$refs.shopCart.drop(target)
       }
     },
     components: {
