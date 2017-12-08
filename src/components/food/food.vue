@@ -69,5 +69,22 @@
     &.move-enter, &.move-leave-to
       transform translate3d(100%, 0, 0)
 
+    .food-content
+      position relative
+      display inline
+      font-size 0
+      .image-header
+        position: relative
+        width 100%
+        height 0
+        padding-top 100%
+        .img
+          position: absolute
+          top  0
+          left 0
+          width 100%
+          height 100%
+
+
 
 </style>
