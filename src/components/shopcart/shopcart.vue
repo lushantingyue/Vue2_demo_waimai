@@ -30,7 +30,7 @@
           <h1 class="title">购物车</h1>
           <span class="empty">清空</span>
         </div>
-        <div class="list-content">
+        <div class="list-content" ref="listContent">
           <ul>
             <li class="food" v-for="food in selectFood">
               <span class="name">{{food.name}}</span>
@@ -51,6 +51,7 @@
 <script type="text/ecmascript-6">
   // import Bus from '../../bus'
   import cartcontrol from '../cartcontrol/cartcontrol'
+  import BScroll from 'better-scroll'
 
   export default {
     components: {
@@ -132,7 +133,17 @@
           this.fold = true
           return false
         }
-        return !this.fold
+        let show = !this.fold
+        if (show) {
+          this.$nextTick(() => {
+            if (!this.bscroll) {
+              this.bscroll = new BScroll(this.$refs.listContent, {click: true})
+            } else {
+              this.bscroll.refresh()
+            }
+          })
+        }
+        return show
       }
     },
     // transitions: {
