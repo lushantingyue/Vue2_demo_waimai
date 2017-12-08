@@ -80,6 +80,7 @@
       width: 12px
       vertical-align: top
       padding-top: 6px
+      margin-top: 6px
       text-align: center
       font-size: 10px
       color: rgb(147, 153, 159)

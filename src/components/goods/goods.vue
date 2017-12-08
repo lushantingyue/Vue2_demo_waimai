@@ -40,6 +40,7 @@
       </ul>
     </div>
     <shopcart ref="shopCart" :selectFood="selectFood" :deliveryPrice="seller.deliveryPrice" :minPrice=seller.minPrice></shopcart>
+    <food :food="selectDish"></food>
   </div>
 </template>
 
@@ -47,6 +48,7 @@
   import BScroll from 'better-scroll'
   import shopcart from '../shopcart/shopcart'
   import cartcontrol from '../cartcontrol/cartcontrol'
+  import food from '../food/food'
   import Bus from '../../bus'
 
   const STATE_SUCESS = 0
@@ -60,7 +62,8 @@
         goods: [],
         listHeight: [],
         scrollY: 0,
-        target: Object
+        target: Object,
+        selectDish: []
       }
     },
     computed: {
@@ -149,7 +152,8 @@
     },
     components: {
       shopcart,
-      cartcontrol
+      cartcontrol,
+      food
     }
   }
 </script>
