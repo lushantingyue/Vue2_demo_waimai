@@ -15,7 +15,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h4 class="title">{{ item.name }}</h4>
           <ul>
-            <li v-for="food in item.foods" class="food-item border-1px">
+            <li @click="previewFood(food, $event)" v-for="food in item.foods" class="food-item border-1px">
               <div class="icon">
                 <img width="57" height="57" :src="food.image">
               </div>
@@ -40,7 +40,7 @@
       </ul>
     </div>
     <shopcart ref="shopCart" :selectFood="selectFood" :deliveryPrice="seller.deliveryPrice" :minPrice=seller.minPrice></shopcart>
-    <food :food="selectDish"></food>
+    <food :food="selectedDish" ref="food"></food>
   </div>
 </template>
 
@@ -50,6 +50,7 @@
   import cartcontrol from '../cartcontrol/cartcontrol'
   import food from '../food/food'
   import Bus from '../../bus'
+  // 备注: 此处命名有些混乱, 规定 被选中预览的食物selectedDish, 预览食物方法 previewFood
 
   const STATE_SUCESS = 0
 
@@ -63,7 +64,7 @@
         listHeight: [],
         scrollY: 0,
         target: Object,
-        selectDish: []
+        selectedDish: []
       }
     },
     computed: {
@@ -119,6 +120,13 @@
         let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
         let ele = foodList[index]
         this.foodsScroll.scrollToElement(ele, 300)
+      },
+      previewFood (food, event) {
+        if (!event._constructed) {
+          return
+        }
+        this.selectedDish = food
+        this.$refs.food.show()
       },
       _initScroll () {
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
