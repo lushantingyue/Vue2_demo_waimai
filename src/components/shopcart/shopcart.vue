@@ -45,6 +45,9 @@
         </div>
       </div>
     </transition>
+    <transition name="fade">
+      <div class="list-mask" @click="hideList" v-show="listShow" ></div>
+    </transition>
   </div>
 </template>
 
@@ -264,6 +267,9 @@
         this.selectFood.forEach((food) => {
           food.count = 0
         })
+      },
+      hideList () {
+        this.fold = true
       }
     }
   }
@@ -384,7 +390,7 @@
       position: absolute
       top: 0
       left: 0
-      z-index: -1
+      z-index: 45
       width: 100%
       transition: all 0.5s
       transform: translate3d(0,-100%,0)
@@ -436,6 +442,19 @@
             right: 0
             bottom: 6px
 
-
-
+    .list-mask
+      position: fixed
+      top 0
+      left 0
+      width 100%
+      height 100%
+      z-index: 40
+      filter : blur(10px)
+      opacity: 1
+      background: rgba(7, 17, 27, 0.6)
+      &.fade-enter-active, &.fade-leave-active
+        transition: all 0.5s
+      &.fade-enter, &.fade-leave-to
+        opacity: 0
+        background: rgba(7, 17, 27, 0)
 </style>
