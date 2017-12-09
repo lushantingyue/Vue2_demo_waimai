@@ -4,6 +4,9 @@
       <div class="food-content">
         <div class="image-header">
           <img :src="food.image">
+          <div class="back" @click="hide">
+            <i class="icon-arrow_lift"></i>
+          </div>
         </div>
         <div class="content">
           <div class="content-left">
@@ -47,6 +50,9 @@
     methods: {
       show () {
         this.showFlag = true
+      },
+      hide () {
+        this.showFlag = false
       }
     },
     computed: {
@@ -69,21 +75,26 @@
     &.move-enter, &.move-leave-to
       transform translate3d(100%, 0, 0)
 
-    .food-content
-      position relative
-      display inline
-      font-size 0
-      .image-header
-        position: relative
+    .image-header
+      position: relative
+      width 100%
+      height 0
+      padding-top 100%
+      img
+        position: absolute
+        top  0
+        left 0
         width 100%
-        height 0
-        padding-top 100%
-        .img
-          position: absolute
-          top  0
-          left 0
-          width 100%
-          height 100%
+        height 100%
+      .back
+        position absolute
+        top 10px
+        left 0
+        .icon-arrow_lift
+          display block
+          padding 10px
+          font-size 20px
+          color #fff
 
 
 
