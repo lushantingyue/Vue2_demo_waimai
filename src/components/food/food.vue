@@ -24,7 +24,7 @@
           <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count||food.count==0">加入购物车</div>
         </transition>
       </div>
-
+      <split v-show="food.info"></split>
       <div class="info"></div>
       <div class="rating"></div>
     </div>
@@ -36,10 +36,12 @@
   import Bus from '../../bus'
   import BScroll from 'better-scroll'
   import cartcontrol from '../cartcontrol/cartcontrol'
+  import split from '../split/split'
 
   export default {
     components: {
-      cartcontrol
+      cartcontrol,
+      split
     },
     props: {
       food: {
