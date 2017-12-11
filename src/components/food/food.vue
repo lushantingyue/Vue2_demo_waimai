@@ -20,10 +20,12 @@
         <div class="cartcontroll-wrapper">
           <cartcontrol :food="food" v-show="food.count"></cartcontrol>
         </div>
-        <div @click="addFirst" class="buy" v-show="!food.count||food.count==0">加入购物车</div>
+        <transition name="fade">
+          <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count||food.count==0">加入购物车</div>
+        </transition>
       </div>
 
-      <div class="food-detail"></div>
+      <div class="info"></div>
       <div class="rating"></div>
     </div>
   </transition>
@@ -145,10 +147,10 @@
           text-decoration: line-through
           font-size: 10px
           color: rgb(147, 153, 159)
-    .cartcontroll-wraper
+    .cartcontroll-wrapper
       position: absolute
-      right: 12px
-      bottom: 12px
+      right 12px
+      bottom 12px
     .buy
       position: absolute
       right: 18px
@@ -162,5 +164,10 @@
       font-size: 10px
       color: #fff
       background: rgb(0, 160, 220)
+      opacity 1
+      &.fade-enter-active, &.fade-leave-active
+        transition: all 0.2s
+      &.fade-enter, &.fade-leave-to
+        opacity: 0
 
 </style>
