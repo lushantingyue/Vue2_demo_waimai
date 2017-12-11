@@ -18,9 +18,9 @@
           </div>
         </div>
         <div class="cartcontroll-wrapper">
-          <cartcontrol :food="food"></cartcontrol>
+          <cartcontrol :food="food" v-show="food.count"></cartcontrol>
         </div>
-        <div class="buy" v-show="!food.count||food.count==0">加入购物车</div>
+        <div @click="addFirst" class="buy" v-show="!food.count||food.count==0">加入购物车</div>
       </div>
 
       <div class="food-detail"></div>
@@ -30,6 +30,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Vue from 'vue'
+  import Bus from '../../bus'
   import BScroll from 'better-scroll'
   import cartcontrol from '../cartcontrol/cartcontrol'
 
@@ -62,6 +64,13 @@
       },
       hide () {
         this.showFlag = false
+      },
+      addFirst (event) {
+        if (!event._constructed) {
+        } else {
+          Bus.$emit('cartAdd', event.target)
+          Vue.set(this.food, 'count', 1)
+        }
       }
     },
     computed: {
@@ -131,6 +140,7 @@
         .new
           font-size: 14px
           color: rgb(240, 20, 20)
+          margin-right: 6px
         .old
           text-decoration: line-through
           font-size: 10px
