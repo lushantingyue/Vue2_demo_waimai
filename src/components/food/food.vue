@@ -16,15 +16,15 @@
           <div class="price">
             <span class="new">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
           </div>
+          <div class="cartcontroll-wrapper">
+            <cartcontrol :food="food" v-show="food.count"></cartcontrol>
+          </div>
+          <transition name="fade">
+            <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count||food.count==0">加入购物车</div>
+          </transition>
         </div>
-        <div class="cartcontroll-wrapper">
-          <cartcontrol :food="food" v-show="food.count"></cartcontrol>
-        </div>
-        <transition name="fade">
-          <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count||food.count==0">加入购物车</div>
-        </transition>
+        <split v-show="food.info"></split>
       </div>
-      <split v-show="food.info"></split>
       <div class="info"></div>
       <div class="rating"></div>
     </div>
@@ -119,6 +119,7 @@
           color: #fff
 
     .content
+      position: relative
       padding: 18px
       h1
         line-height: 14px
