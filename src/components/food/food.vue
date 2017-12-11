@@ -16,10 +16,11 @@
           <div class="price">
             <span class="new">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
           </div>
-          <div class="cartcontrol-wrapper">
-            <cartcontrol :food="food"></cartcontrol>
-          </div>
         </div>
+        <div class="cartcontroll-wrapper">
+          <cartcontrol :food="food"></cartcontrol>
+        </div>
+        <div class="buy" v-show="!food.count||food.count==0">加入购物车</div>
       </div>
 
       <div class="food-detail"></div>
@@ -29,7 +30,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  // import BScroll from 'better-scroll'
+  import BScroll from 'better-scroll'
   import cartcontrol from '../cartcontrol/cartcontrol'
 
   export default {
@@ -49,6 +50,15 @@
     methods: {
       show () {
         this.showFlag = true
+        this.$nextTick(() => {
+          if (!this.scroll) {
+            this.scroll = new BScroll(this.$refs.food, {
+              click: true
+            })
+          } else {
+            this.scroll.refresh()
+          }
+        })
       },
       hide () {
         this.showFlag = false
@@ -62,38 +72,38 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .food
     position: fixed
-    left 0
-    top 0
-    bottom 48px
-    width 100%
-    z-index 30
-    background #fff
-    transform translate3d(0, 0, 0)
+    left: 0
+    top: 0
+    bottom: 48px
+    width: 100%
+    z-index: 30
+    background: #fff
+    transform: translate3d(0, 0, 0)
     &.move-enter-active, &.move-leave-active
       transition: all 0.2s linear
     &.move-enter, &.move-leave-to
-      transform translate3d(100%, 0, 0)
+      transform: translate3d(100%, 0, 0)
 
     .image-header
       position: relative
-      width 100%
-      height 0
-      padding-top 100%
+      width: 100%
+      height: 0
+      padding-top: 100%
       img
         position: absolute
-        top  0
-        left 0
-        width 100%
-        height 100%
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
       .back
-        position absolute
-        top 10px
-        left 0
+        position: absolute
+        top: 10px
+        left: 0
         .icon-arrow_lift
-          display block
-          padding 10px
-          font-size 20px
-          color #fff
+          display: block
+          padding: 10px
+          font-size: 20px
+          color: #fff
 
     .content
       padding: 18px
@@ -109,8 +119,8 @@
         height: 10px
         font-size: 0px
         .sell-count, .rating
-          font-size 10px
-          color rgb(147, 153, 159)
+          font-size: 10px
+          color: rgb(147, 153, 159)
         .sell-count
           margin-right: 12px
 
@@ -119,11 +129,28 @@
         font-weight: 700
         line-height: 24px
         .new
-          font-size 14px
-          color rgb(240, 20, 20)
+          font-size: 14px
+          color: rgb(240, 20, 20)
         .old
-          text-decoration line-through
-          font-size 10px
-          color rgb(147, 153, 159)
+          text-decoration: line-through
+          font-size: 10px
+          color: rgb(147, 153, 159)
+    .cartcontroll-wraper
+      position: absolute
+      right: 12px
+      bottom: 12px
+    .buy
+      position: absolute
+      right: 18px
+      bottom: 18px
+      z-index: 10
+      height: 24px
+      line-height: 24px
+      padding: 0 12px
+      box-sizing: border-box
+      border-radius: 12px
+      font-size: 10px
+      color: #fff
+      background: rgb(0, 160, 220)
 
 </style>
