@@ -34,7 +34,7 @@
           <ratingselect :selectType="selectType" :onlyContent="onlyContent" :ratings="food.ratings" :desc="desc"></ratingselect>
           <div class="rating-wrapper">
             <ul v-show="food.ratings && food.ratings.length">
-              <li v-for="rating in food.ratings" class="rating-item border-1px">
+              <li v-show="needShow(rating.rateType, rating.text)" v-for="rating in food.ratings" class="rating-item border-1px">
                 <div class="user">
                   <span class="name">{{rating.username}}</span>
                   <img :src="rating.avatar" class="avatar" width="12" height="12"/>
@@ -78,13 +78,21 @@
       return {
         showFlag: false,
         selectType: ALL,
-        onlyContent: true,
+        onlyContent: false,
         desc: {
           all: '全部',
           positive: '满意',
           negative: '吐槽'
         }
       }
+    },
+    created () {
+      Bus.$on('ratingtype.select', (value) => {
+        this.selectType = value
+      })
+      Bus.$on('content.toggle', (value) => {
+        this.onlyContent = value
+      })
     },
     methods: {
       show () {
@@ -109,6 +117,16 @@
         } else {
           Bus.$emit('cartAdd', event.target)
           Vue.set(this.food, 'count', 1)
+        }
+      },
+      needShow (type, text) {
+        if (this.onlyContent && !text) {
+          return false
+        }
+        if (this.selectType === ALL) {
+          return true
+        } else {
+          return type === this.selectType
         }
       }
     },

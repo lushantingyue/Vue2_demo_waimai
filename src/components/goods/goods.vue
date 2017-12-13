@@ -89,10 +89,6 @@
         })
         return foods
       }
-      // ,
-      // cartAdd (target) {
-      //   this._drop(target)
-      // }
     },
     created () {
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
@@ -108,7 +104,9 @@
       })
 
       Bus.$on('cartAdd', (target) => {
-        this._drop(target)
+        console.log('******* goods *******')
+        console.log(target)
+        this.$refs.shopCart.drop(target)
       })
     },
     methods: {
@@ -150,13 +148,14 @@
           height += item.clientHeight
           this.listHeight.push(height)
         }
-      },
-      _drop (target) {
-        // 调用shopcart组件的drop methods
-        console.log('******* goods *******')
-        console.log(target)
-        this.$refs.shopCart.drop(target)
       }
+      // ,
+      // _drop (target) {
+      //   // 调用shopcart组件的drop methods
+      //   console.log('******* goods *******')
+      //   console.log(target)
+      //   this.$refs.shopCart.drop(target)
+      // }
     },
     components: {
       shopcart,
