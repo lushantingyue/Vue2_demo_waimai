@@ -1,11 +1,11 @@
 <template>
     <div class="ratingselect">
       <div class="rating-type border-1px">
-        <span class="block positive" :class="{'active': selectType===2}">{{desc.all}}<span class="count">57</span></span>
-        <span class="block positive" :class="{'active': selectType===0}">{{desc.positive}}<span class="count" >47</span></span>
-        <span class="block negative" :class="{'active': selectType===1}">{{desc.negative}}<span class="count">10</span></span>
+        <span @click="select(2, $event)" class="block positive" :class="{'active': selectType===2}">{{desc.all}}<span class="count">{{ratings.length}}</span></span>
+        <span @click="select(0, $event)" class="block positive" :class="{'active': selectType===0}">{{desc.positive}}<span class="count" >{{positives.length}}</span></span>
+        <span @click="select(1, $event)" class="block negative" :class="{'active': selectType===1}">{{desc.negative}}<span class="count">{{negatives.length}}</span></span>
       </div>
-      <div class="switch" :class="{'on': onlyContent}">
+      <div class="switch" :class="{'on': onlyContent}" @click="toggleContent">
         <span class="icon-check_circle"></span>
         <span class="text">只看有内容的评价</span>
         <span>{{selectType}}</span>
@@ -15,8 +15,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  // const POSITIVE = 0
-  // const NEGATIVE = 1
+  import Bus from '../../bus'
+  const POSITIVE = 0
+  const NEGATIVE = 1
   const ALL = 2
 
   export default {
@@ -46,7 +47,35 @@
         }
       }
     },
-    methods: {}
+    computed: {
+      positives () {
+        return this.ratings.filter((rating) => {
+          return rating.rateType === POSITIVE
+        })
+      },
+      negatives () {
+        return this.ratings.filter((rating) => {
+          return rating.rateType === NEGATIVE
+        })
+      }
+    },
+    methods: {
+      select (type, event) {
+        if (!event._constructed) {
+        } else {
+          this.selectType = type
+          // this.$dispatch('ratingtype.select', event.target)
+          Bus.$emit('ratingtype.select', type)
+        }
+      },
+      toggleContent (event) {
+        if (!event._constructed) {
+        } else {
+          this.onlyContent = !this.onlyContent
+          Bus.$emit('content.toggle', this.onlyContent)
+        }
+      }
+    }
   }
 </script>
 
