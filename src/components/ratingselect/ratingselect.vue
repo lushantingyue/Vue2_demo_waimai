@@ -14,7 +14,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Bus from '../../bus'
+  // import Bus from '../../bus'
   const POSITIVE = 0
   const NEGATIVE = 1
   const ALL = 2
@@ -63,15 +63,16 @@
         if (!event._constructed) {
         } else {
           this.selectType = type
-          // this.$dispatch('ratingtype.select', event.target)
-          Bus.$emit('ratingtype.select', type)
+          this.$emit('select', type)
+          // Bus.$emit('ratingtype.select', type)
         }
       },
       toggleContent (event) {
         if (!event._constructed) {
         } else {
           this.onlyContent = !this.onlyContent
-          Bus.$emit('content.toggle', this.onlyContent)
+          this.$emit('toggle')
+          // Bus.$emit('content.toggle', this.onlyContent)
         }
       }
     }

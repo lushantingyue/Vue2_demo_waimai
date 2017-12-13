@@ -31,7 +31,8 @@
         <split v-show="food.ratings"></split>
         <div class="rating">
           <h1 class="title">商品评价</h1>
-          <ratingselect :selectType="selectType" :onlyContent="onlyContent" :ratings="food.ratings" :desc="desc"></ratingselect>
+          <ratingselect :selectType="selectType" :onlyContent="onlyContent" :ratings="food.ratings" :desc="desc"
+                        @select="selectRating" @toggle="toggleContent"></ratingselect>
           <div class="rating-wrapper">
             <ul v-show="food.ratings && food.ratings.length">
               <li v-show="needShow(rating.rateType, rating.text)" v-for="rating in food.ratings" class="rating-item border-1px">
@@ -87,12 +88,12 @@
       }
     },
     created () {
-      Bus.$on('ratingtype.select', (value) => {
-        this.selectType = value
-      })
-      Bus.$on('content.toggle', (value) => {
-        this.onlyContent = value
-      })
+      // Bus.$on('ratingtype.select', (value) => {
+      //   this.selectType = value
+      // })
+      // Bus.$on('content.toggle', (value) => {
+      //   this.onlyContent = value
+      // })
     },
     methods: {
       show () {
@@ -128,6 +129,18 @@
         } else {
           return type === this.selectType
         }
+      },
+      selectRating (type) {
+        this.selectType = type
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
+      },
+      toggleContent () {
+        this.onlyContent = !this.onlyContent
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
       }
     },
     computed: {
