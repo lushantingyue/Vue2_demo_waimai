@@ -8,7 +8,6 @@
       <div class="switch" :class="{'on': onlyContent}" @click="toggleContent">
         <span class="icon-check_circle"></span>
         <span class="text">只看有内容的评价</span>
-        <span>{{selectType}}</span>
       </div>
       <div class="rating-list"></div>
     </div>
