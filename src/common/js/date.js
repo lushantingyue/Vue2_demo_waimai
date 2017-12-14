@@ -4,7 +4,7 @@ export function formatDate (date, fmt) {
     console.log('1.......... ' + fmt)
   }
   let o = {
-    'M+': date.getMonth() + 1,
+    'M+': date.getMonth() + 1, // js的月是从0开始算,所以要加1
     'd+': date.getDate(),
     'h+': date.getHours(),
     'm+': date.getMinutes(),

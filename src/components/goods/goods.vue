@@ -64,7 +64,7 @@
         listHeight: [],
         scrollY: 0,
         target: Object,
-        selectedDish: []
+        selectedDish: {}
       }
     },
     computed: {
@@ -123,6 +123,8 @@
         if (!event._constructed) {
           return
         }
+        console.log('data')
+        console.log(food)
         this.selectedDish = food
         this.$refs.food.show()
       },
