@@ -62,7 +62,6 @@
       select (type, event) {
         if (!event._constructed) {
         } else {
-          this.selectType = type
           this.$emit('select', type)
           // Bus.$emit('ratingtype.select', type)
         }
@@ -70,7 +69,6 @@
       toggleContent (event) {
         if (!event._constructed) {
         } else {
-          this.onlyContent = !this.onlyContent
           this.$emit('toggle')
           // Bus.$emit('content.toggle', this.onlyContent)
         }
