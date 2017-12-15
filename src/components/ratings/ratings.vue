@@ -24,12 +24,20 @@
           </div>
         </div>
       </div>
+      <split></split>
+      <ratingselect :selectType="selectType" :onlyContent="onlyContent" :ratings="ratings"
+                    @select="selectRating" @toggle="toggleContent"></ratingselect>
+      <div class="ratings-wrapper"></div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import star from '../../components/star/star'
+  import ratingselect from '../../components/ratingselect/ratingselect'
+  import split from '../../components/split/split'
+
+  const ALL = 2
 
   export default {
     props: {
@@ -37,8 +45,25 @@
         type: Object
       }
     },
+    data () {
+      return {
+        ratings: [],
+        selectType: ALL,
+        onlyContent: false
+      }
+    },
+    methods: {
+      toggleContent () {
+        this.onlyContent = !this.onlyContent
+      },
+      selectRating (type) {
+        this.selectType = type
+      }
+    },
     components: {
-      star
+      star,
+      split,
+      ratingselect
     }
   }
 </script>
