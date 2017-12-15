@@ -33,6 +33,7 @@
             <div class="avatar">
               <img :src="rating.avatar" width="28" height="28"/>
             </div>
+
             <div class="content">
               <h1 class="name">{{rating.username}}</h1>
               <div class="star-wrapper">
@@ -40,7 +41,14 @@
                 <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}分钟送达</span>
               </div>
               <p class="text">{{rating.text}}</p>
-              <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
+
+              <div class="recommend" v-show="rating.recommend && rating.recommend.length">
+                <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
+              </div>
+
+              <div class="time">
+                {{rating.rateTime | formatDate}}
+              </div>
             </div>
           </li>
         </ul>
@@ -54,6 +62,7 @@
   import ratingselect from '../../components/ratingselect/ratingselect'
   import split from '../../components/split/split'
   import BScroll from 'better-scroll'
+  import {formatDate} from '../../common/js/date'
 
   const ALL = 2
   const STATE_SUCESS = 0
@@ -106,11 +115,19 @@
       star,
       split,
       ratingselect
+    },
+    filters: {
+      formatDate (time) {
+        let date = new Date(time)
+        return formatDate(date, 'yyyy-MM-dd hh:mm')
+      }
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/mixin.styl"
+
   .ratings
     position absolute
     top 174px
@@ -180,31 +197,54 @@
             line-height 18px
             font-size 12px
             color rgb(147, 153, 159)
+
     .ratings-wrapper
-      padding 18px 0
+      margin 0 18px
       .rating-item
-        margin 0 18px
+        display flex
+        padding 18px 0
+        border-1px(rgba(7, 17, 27, 0.1))
         .avatar
+          flex 0 0 28px
+          width 28px
+          margin-right 12px
           img
-            border-radius 28px
+            border-radius 50%
         .content
+          position relative
+          flex 1
           .name
+            margin-bottom 4px
+            line-height 12px
             font-size 10px
+            color rgb(7,17,27)
           .star-wrapper
-            margin 4px 0 6px 0
+            margin-bottom 6px
             font-size 0
             .star
-              line-height 12px
+              margin-right 6px
               display inline-block
               vertical-align top
             .delivery
-              margin-left 6px
               display inline-block
-              line-height 12px
               vertical-align top
+              line-height 12px
               font-size 10px
               color rgb(147, 153, 159)
           .text
-            font-size 12px
+            margin-bottom 8px
+            line-height 18px
             color rgb(7, 17, 27)
+            font-size 12px
+          .recommend
+            line-height 16px
+            font-size 12px
+            .icon-thumb_up
+              color rgb(0, 160, 220)
+            .icon-thumb_down
+              color rgb(183, 187, 191)
+          .time
+            display absolute
+            top 0
+            font-size 10px
 </style>
