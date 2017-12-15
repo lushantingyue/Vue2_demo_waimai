@@ -27,7 +27,20 @@
       <split></split>
       <ratingselect :selectType="selectType" :onlyContent="onlyContent" :ratings="ratings"
                     @select="selectRating" @toggle="toggleContent"></ratingselect>
-      <div class="ratings-wrapper"></div>
+      <div class="ratings-wrapper">
+        <ul>
+          <li v-for="rating in ratings" class="rating-item">
+            <div class="avatar">
+              <img :src="rating.avatar" width="28" height="28"/>
+            </div>
+            <div class="content">
+              <h1 class="name">{{rating.username}}</h1>
+              <div class="text">{{rating.text}}</div>
+              <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -147,4 +160,16 @@
             line-height 18px
             font-size 12px
             color rgb(147, 153, 159)
+    .ratings-wrapper
+      padding 18px 0
+      .rating-item
+        margin 0 18px
+        .avatar
+          img
+            border-radius 28px
+        .content
+          .name
+            font-size 10px
+          .text
+            font-size 12px
 </style>
