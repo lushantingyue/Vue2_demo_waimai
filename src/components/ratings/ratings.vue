@@ -1,5 +1,5 @@
 <template>
-  <div class="ratings">
+  <div class="ratings" ref="ratings">
     <div class="ratings-content">
       <div class="overview">
         <div class="overview-left">
@@ -29,13 +29,17 @@
                     @select="selectRating" @toggle="toggleContent"></ratingselect>
       <div class="ratings-wrapper">
         <ul>
-          <li v-for="rating in ratings" class="rating-item">
+          <li v-show="needShow(rating.rateType, rating.text)" v-for="rating in ratings" class="rating-item">
             <div class="avatar">
               <img :src="rating.avatar" width="28" height="28"/>
             </div>
             <div class="content">
               <h1 class="name">{{rating.username}}</h1>
-              <div class="text">{{rating.text}}</div>
+              <div class="star-wrapper">
+                <star :size="36" :score="rating.score"></star>
+                <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}分钟送达</span>
+              </div>
+              <p class="text">{{rating.text}}</p>
               <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
             </div>
           </li>
@@ -49,6 +53,7 @@
   import star from '../../components/star/star'
   import ratingselect from '../../components/ratingselect/ratingselect'
   import split from '../../components/split/split'
+  import BScroll from 'better-scroll'
 
   const ALL = 2
   const STATE_SUCESS = 0
@@ -73,6 +78,11 @@
           this.ratings = response.data
         }
       })
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.ratings, {
+          click: true
+        })
+      })
     },
     methods: {
       toggleContent () {
@@ -80,6 +90,16 @@
       },
       selectRating (type) {
         this.selectType = type
+      },
+      needShow (type, text) {
+        if (this.onlyContent && !text) {
+          return false
+        }
+        if (this.selectType === ALL) {
+          return true
+        } else {
+          return type === this.selectType
+        }
       }
     },
     components: {
@@ -170,6 +190,21 @@
         .content
           .name
             font-size 10px
+          .star-wrapper
+            margin 4px 0 6px 0
+            font-size 0
+            .star
+              line-height 12px
+              display inline-block
+              vertical-align top
+            .delivery
+              margin-left 6px
+              display inline-block
+              line-height 12px
+              vertical-align top
+              font-size 10px
+              color rgb(147, 153, 159)
           .text
             font-size 12px
+            color rgb(7, 17, 27)
 </style>
