@@ -38,6 +38,7 @@
   import split from '../../components/split/split'
 
   const ALL = 2
+  const STATE_SUCESS = 0
 
   export default {
     props: {
@@ -51,6 +52,14 @@
         selectType: ALL,
         onlyContent: false
       }
+    },
+    created () {
+      this.$http.get('/api/ratings').then((response) => {
+        response = response.body
+        if (response.errno === STATE_SUCESS) {
+          this.ratings = response.data
+        }
+      })
     },
     methods: {
       toggleContent () {
