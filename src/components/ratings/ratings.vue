@@ -42,8 +42,9 @@
               </div>
               <p class="text">{{rating.text}}</p>
 
-              <div class="recommend" v-show="rating.recommend && rating.recommend.length">
+              <div class="recommend">
                 <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>
+                <span class="item" v-show="rating.recommend && rating.recommend.length" v-for="item in rating.recommend">{{item}}</span>
               </div>
 
               <div class="time">
@@ -238,13 +239,29 @@
             font-size 12px
           .recommend
             line-height 16px
-            font-size 12px
+            font-size 0
             .icon-thumb_up
+              display inline-block
+              font-size 12px
               color rgb(0, 160, 220)
             .icon-thumb_down
+              display: inline-block
+              font-size 12px
               color rgb(183, 187, 191)
+            .item
+              padding 0 6px
+              margin 0 8px
+              display inline-block
+              border 1px solid rgba(7, 17, 27, 0.1)
+              border-radius 1px
+              font-size 9px
+              color rgb(147, 153, 159)
+              background #fff
           .time
-            display absolute
+            position absolute
             top 0
+            right 0
+            line-height 12px
             font-size 10px
+            color rgb(147, 153, 159)
 </style>
