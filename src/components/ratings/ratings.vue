@@ -242,15 +242,17 @@
             font-size 0
             .icon-thumb_up
               display inline-block
+              margin-right 8px
               font-size 12px
               color rgb(0, 160, 220)
             .icon-thumb_down
               display: inline-block
+              margin-right 8px
               font-size 12px
               color rgb(183, 187, 191)
             .item
               padding 0 6px
-              margin 0 8px
+              margin-right 8px
               display inline-block
               border 1px solid rgba(7, 17, 27, 0.1)
               border-radius 1px
