@@ -21,6 +21,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {urlParse} from './common/js/util'
   import header from './components/header/header.vue'
 
   const STATE_SUCESS = 0
@@ -29,15 +30,23 @@
     name: 'app',
     data () {
       return {
-        seller: {}
+        seller: {
+          id: (() => {
+            let queryParam = urlParse()
+            console.log(queryParam)
+            return queryParam.id
+          })()
+        }
       }
     },
     created () {
-      this.$http.get('/api/seller').then((response) => {
+      this.$http.get('/api/seller' + '?id=' + this.seller.id).then((response) => {
         response = response.body
         console.log(response)
         if (response.errno === STATE_SUCESS) {
-          this.seller = response.data
+          // this.seller = response.data
+          // 为 seller 对象扩展属性
+          this.seller = Object.assign({}, this.seller, response.data)
           console.log(this.seller)
         }
       })

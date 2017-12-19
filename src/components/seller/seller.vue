@@ -216,7 +216,7 @@
         position absolute
         width 50px
         top 18px
-        right 5px
+        right 11px
         font-size 0
         text-align center
         .icon-favorite
