@@ -28,6 +28,10 @@
             </div>
           </li>
         </ul>
+        <div class="favourite" @click="toggleFavourite">
+          <span class="icon-favorite" :class="{'active': this.favourite}"></span>
+          <span class="text">{{favouriteText}}</span>
+        </div>
       </div>
 
       <split></split>
@@ -80,6 +84,11 @@
         type: Object
       }
     },
+    data () {
+      return {
+        favourite: false
+      }
+    },
     created () {
       console.log('created')
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
@@ -99,6 +108,11 @@
           this._initScroll()
           this._initPics()
         })
+      }
+    },
+    computed: {
+      favouriteText () {
+        return this.favourite ? '已收藏' : '收藏'
       }
     },
     methods: {
@@ -128,6 +142,13 @@
             this.picScroll.refresh()
           }
           // })
+        }
+      },
+      toggleFavourite (event) {
+        if (!event._constructed) {
+        } else {
+          this.favourite = !this.favourite
+          // localStorage存储
         }
       }
     },
@@ -191,6 +212,25 @@
             color rgb(7, 17, 27)
             .stress
               font-size 24px
+      .favourite
+        position absolute
+        width 50px
+        top 18px
+        right 5px
+        font-size 0
+        text-align center
+        .icon-favorite
+          display block
+          margin-bottom 4px
+          line-height 24px
+          font-size 24px
+          color #d4d6d9
+          &.active
+            color rgb(240, 20, 20)
+        .text
+          line-height 10px
+          font-size 10px
+          color rgb(77, 85, 93)
     .bulletin
       padding 18px 18px 0 18px
       .title
@@ -269,6 +309,7 @@
         font-size 12px
         color rgb(7,17,27)
         border-1px(rgba(7, 17, 27, 0.1))
-
+        &:last-child
+          border-none()
 
 </style>
