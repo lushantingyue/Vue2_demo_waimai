@@ -68,6 +68,7 @@
 <script type="text/ecmascript-6">
   import split from '../../components/split/split'
   import star from '../../components/star/star'
+  import BScroll from 'better-scroll'
 
   export default {
     props: {
@@ -76,7 +77,35 @@
       }
     },
     created () {
+      console.log('created')
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+    },
+    mounted () {
+      console.log('ready-->mounted')
+      this.$nextTick(() => {
+        this._initScroll()
+      })
+    },
+    watch: {
+      'seller' () {
+        // 观察 seller变化触发更新
+        this.$nextTick(() => {
+          this._initScroll()
+        })
+      }
+    },
+    methods: {
+      _initScroll () {
+        if (!this.scroll) {
+          this.scroll = new BScroll(this.$refs.seller, {
+            click: true
+          })
+        } else {
+          this.scroll.refresh()
+        }
+      },
+      _initPics () {
+      }
     },
     components: {
       split,
@@ -139,7 +168,7 @@
             .stress
               font-size 24px
     .bulletin
-      padding 18px
+      padding 18px 18px 0 18px
       .title
         padding-bottom 8px
         line-height 14px
