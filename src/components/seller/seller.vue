@@ -49,9 +49,13 @@
 
       <div class="pics">
         <h1 class="title">商家实景</h1>
-        <span class="pic" v-for="pic in seller.pics" v-show="seller.pics">
-        <img :src="pic" width="240" height="180"/>
-      </span>
+        <div class="pic-wrapper" ref="picWrapper">
+          <ul class="pic-list" ref="picList">
+            <li class="pic-item" v-for="pic in seller.pics">
+              <img :src="pic" width="120" height="90">
+            </li>
+          </ul>
+        </div>
       </div>
 
       <split></split>
@@ -81,9 +85,11 @@
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     },
     mounted () {
-      console.log('ready-->mounted')
+      // dom 渲染完成后触发
+      console.log('mounted')
       this.$nextTick(() => {
         this._initScroll()
+        this._initPics()
       })
     },
     watch: {
@@ -91,6 +97,7 @@
         // 观察 seller变化触发更新
         this.$nextTick(() => {
           this._initScroll()
+          this._initPics()
         })
       }
     },
@@ -105,6 +112,23 @@
         }
       },
       _initPics () {
+        // 计算 ul展开需要的宽度
+        if (this.seller.pics) {
+          let picWidth = 120
+          let margin = 6
+          let width = (picWidth + margin) * this.seller.pics.length
+          this.$refs.picList.style.width = width + 'px' // 按计算值设置图片列表宽度
+          // this.$nextTick(() => {
+          if (!this.picScroll) {
+            this.picScroll = new BScroll(this.$refs.picWrapper, {
+              scrollX: true, // 设置横向滚动属性
+              eventPassthrough: 'vertical'  // 设置过滤垂直滚动
+            })
+          } else {
+            this.picScroll.refresh()
+          }
+          // })
+        }
       }
     },
     components: {
@@ -212,12 +236,25 @@
               bg-image('special_2')
 
     .pics
-      padding 18px 0 18px 18px
+      padding 18px
       .title
         padding-bottom 12px
         line-height 14px
         font-size 14px
         color rgb(7,17,27)
+      .pic-wrapper
+        width 100%
+        overflow: hidden
+        white-space nowrap
+        .pic-list
+          font-size 0
+          .pic-item
+            display: inline-block
+            margin-right: 6px
+            width: 120px
+            height: 90px
+            &:last-child
+              margin: 0
     .infos
       padding 18px
       .title
