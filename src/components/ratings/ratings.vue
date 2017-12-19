@@ -86,20 +86,26 @@
         response = response.body
         if (response.errno === STATE_SUCESS) {
           this.ratings = response.data
+          this.$nextTick(() => {
+            this.scroll = new BScroll(this.$refs.ratings, {
+              click: true
+            })
+          })
         }
-      })
-      this.$nextTick(() => {
-        this.scroll = new BScroll(this.$refs.ratings, {
-          click: true
-        })
       })
     },
     methods: {
       toggleContent () {
         this.onlyContent = !this.onlyContent
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
       },
       selectRating (type) {
         this.selectType = type
+        this.$nextTick(() => {
+          this.scroll.refresh()
+        })
       },
       needShow (type, text) {
         if (this.onlyContent && !text) {
