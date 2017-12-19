@@ -77,6 +77,7 @@
   import split from '../../components/split/split'
   import star from '../../components/star/star'
   import BScroll from 'better-scroll'
+  import {saveToLocal, loadFromLocal} from '../../common/js/store'
 
   export default {
     props: {
@@ -86,7 +87,12 @@
     },
     data () {
       return {
-        favourite: false
+        //  写法一:
+        // favourite: loadFromLocal(this.seller.id, 'favourite', false)
+        // 写法二: 箭头匿名函数
+        favourite: (() => {
+          return loadFromLocal(this.seller.id, 'favourite', false)
+        })()
       }
     },
     created () {
@@ -149,6 +155,7 @@
         } else {
           this.favourite = !this.favourite
           // localStorage存储
+          saveToLocal(this.seller.id, 'favourite', this.favourite)
         }
       }
     },
