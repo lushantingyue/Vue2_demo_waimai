@@ -173,7 +173,7 @@
   .good
     display: flex
     position: absolute
-    top: 186px
+    top: 174px
     bottom: 46px
     left: 0
     width: 100%
