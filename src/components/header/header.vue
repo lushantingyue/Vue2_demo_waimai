@@ -276,7 +276,7 @@
           .supports
             display: inline-block
             text-align left
-            width: 100%
+            width: 80%
             margin: 0 auto
             .support-item
               padding:  0 12px
