@@ -192,13 +192,13 @@
 
 
     .bulletin-wrapper
-      position :relative
-      height :28px
-      vertical-align :center
-      padding :0, 22px, 0, 12px
-      white-space :nowrap
-      overflow :hidden
-      text-overflow:ellipsis
+      position: relative
+      height: 28px
+      line-height: 28px
+      padding: 0 22px 0 12px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
       background: rgba(7, 17, 27, 0.2)
       .bulletin-title
         display :inline-block
