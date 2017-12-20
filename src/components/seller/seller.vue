@@ -77,6 +77,7 @@
   import split from '../../components/split/split'
   import star from '../../components/star/star'
   import BScroll from 'better-scroll'
+  // 在es6下,export 函数function的导入需要这样写
   import {saveToLocal, loadFromLocal} from '../../common/js/store'
 
   export default {
